@@ -10,19 +10,13 @@ $db=$database->connect();
 $post = new Post($db);
 $id = isset($_GET['id']) ? $_GET['id'] : die("id introuvable");
 $post->set_id($id);
-$post->singlePost();
-
-$element  = array(
-  'id' => $post->get_id(),
-  'title' => $post->get_title(),
-  'description'=> $post->get_description(),
-  'autor'=>$post->get_autor(),
-  'id_categ'=>$post->get_id_categ()
-
-);
-
-print_r(json_encode($element));
-
-
-
+if($post->deleteElement()){
+  echo json_encode(array(
+    "message" =>" Element supprime avec succeee"
+  ));
+ } else{
+    echo json_encode(array(
+      "message" =>" Element non supprime"
+    ));
+  }
 ?>
